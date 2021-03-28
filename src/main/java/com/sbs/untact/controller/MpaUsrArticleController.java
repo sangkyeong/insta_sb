@@ -39,10 +39,8 @@ public class MpaUsrArticleController {
 		if ( Util.isEmpty(body) ) {
 			return new ResultData("F-3", "내용을 입력해주세요.");
 		}
-		int id = ArticleService.writeArticle(title, body);
-		Article article = ArticleService.getArticleById(id);
-
-		return new ResultData("S-1", id + "번 글이 작성되었습니다.", "article", article);
+		
+		return ArticleService.writeArticle(title, body);
 	}
 
 	@RequestMapping("/mpaUsr/article/doDelete")
@@ -54,14 +52,7 @@ public class MpaUsrArticleController {
 			return new ResultData("F-1", "번호를 입력해주세요.");
 		}
 		
-		
-		boolean deleted = ArticleService.deleteArticleById(id);
-		
-		if (deleted == false) {
-			return new ResultData("F-1", id + "번 글이 없습니다.", "id", id);
-		}
-
-		return new ResultData("S-1", id + "번 글이 삭제되었습니다.", "id", id);
+		return ArticleService.deleteArticleById(id);
 	}
 
 
@@ -80,13 +71,13 @@ public class MpaUsrArticleController {
 			return new ResultData("F-3", "내용을 입력해주세요.");
 		}
 		
-		boolean modified = ArticleService.modifyArticle(id, title, body);
-
-		if (modified == false) {
-			return new ResultData("F-1", id + "번 글이 없습니다.", "id", id);
+		Article article = ArticleService.getArticleById(id);
+		
+		if (article == null) {
+			return  new ResultData("F-4", "존재하지 않는 게시물 번호입니다.");
 		}
 
-		return new ResultData("S-1", id + "번 글이 수정되었습니다.", "title", title, "body", body);
+		return ArticleService.modifyArticle(id, title, body);
 	}
 
 
