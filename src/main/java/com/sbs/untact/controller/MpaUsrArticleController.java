@@ -37,6 +37,35 @@ public class MpaUsrArticleController {
 		return new ResultData("S-1", id + "번 글이 작성되었습니다.", "article", article);
 	}
 	
+	
+	@RequestMapping("/mpaUsr/article/doDelete")
+	@ResponseBody
+	public ResultData doDelete(int id) {
+		boolean deleted = deleteArticleById(id);
+		
+		if(deleted==false) {
+			return new ResultData("S-1", id + "번 글이 없습니다.", "id", id);
+		}
+		
+		
+		return new ResultData("S-1", id + "번 글이 삭제되었습니다.", "id", id);
+	}
+	
+	
+	private boolean deleteArticleById(int id) {
+		
+		for (Article article : articles) {
+			if (article.getId() == id) {
+				articles.remove(article);
+				return true;
+			}
+
+		}
+		
+		
+		return false;
+	}
+
 	public int WriteArticle(String title, String body) {
 		int id = i + 1;
 		String regDate = Util.getNowDateStr();
