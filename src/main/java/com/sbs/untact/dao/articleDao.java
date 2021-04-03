@@ -3,71 +3,23 @@ package com.sbs.untact.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.sbs.untact.dto.Article;
 import com.sbs.untactTeacher.util.Util;
 
-public class articleDao {
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
-	private List<Article> articles;
-	private int articleLastId;
+
+@Mapper
+public interface articleDao {
 	
-	public articleDao() {
-		articles = new ArrayList<>();
-		articleLastId = 0;
-		makeTestData();
-	}
-	
-	public void makeTestData() {
-		for (int i = 0; i < 3; i++) {
-			writeArticle("제목1", "내용1");
-		}
-	}
-	
-	public boolean modifyArticle(int id, String title, String body) {
-		Article article = getArticleById(id);
+	 boolean modifyArticle(@Param("id") int id, @Param("title") String title,@Param("body") String body);
 
-		if (article == null) {
-			return false;
-		}
+	 void deleteArticleById(@Param("id")int id);
+	 
+	 void writeArticle(@Param("boardId")int boardId, @Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
 
-		article.setUpdateDate(Util.getNowDateStr());
-		article.setTitle(title);
-		article.setBody(body);
-
-		return true;
-	}
-
-	public boolean deleteArticleById(int id) {
-		Article article = getArticleById(id);
-
-		if (article == null) {
-			return false;
-		}
-
-		articles.remove(article);
-		return true;
-	}
-
-	public int writeArticle(String title, String body) {
-		int id = articleLastId + 1;
-		String regDate = Util.getNowDateStr();
-		String updateDate = Util.getNowDateStr();
-
-		Article article = new Article(id, regDate, updateDate, title, body);
-		articles.add(article);
-
-		articleLastId = id;
-
-		return id;
-	}
-
-	public Article getArticleById(int id) {
-		for (Article article : articles) {
-			if (article.getId() == id) {
-				return article;
-			}
-		}
-
-		return null;
-	}
+	 Article getArticleById(@Param("id")int id);
 }
