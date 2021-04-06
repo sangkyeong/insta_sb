@@ -5,9 +5,9 @@ import com.sbs.untact.controller.MpaUsrArticleController;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@AllArgsConstructor
+public @AllArgsConstructor
 @Data
-public class Article {
+class Article {
 
 	// getter와 setter를 알아서 해줌
 
