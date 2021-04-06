@@ -31,7 +31,7 @@
 </head>
 <body>
 		<div class="site-wrap">
-		<header class="top-bar top-bar--fly">
+<header class="top-bar top-bar--fly">
 			<div class="container mx-auto flex h-full">
 				<a href="/" class="px-3 flex items-center">
 					<span>
@@ -104,9 +104,8 @@
 		</header>
 		<div class="title-bar">
 			<div class="containar mx-auto">
-				<span><i class="fas fa-home"></i></span>
-				<span>메인화면</span>
-			
+				<span><i class="far fa-clipboard"></i></span>
+				<span>게시물 리스트</span>
 			</div>
 		
 		</div>

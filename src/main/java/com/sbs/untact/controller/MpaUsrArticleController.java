@@ -79,6 +79,13 @@ public class MpaUsrArticleController {
 
 		return ArticleService.modifyArticle(id, title, body);
 	}
+	
+	@RequestMapping("/mpaUsr/article/list")
+	public String showlist(int boardId) {
+		
+		return "mpaUsr/article/list";
+
+	}
 
 
 	@RequestMapping("/mpaUsr/article/getarticle")

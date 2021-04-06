@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MpaUsrHomeController {
 	
+	@RequestMapping("/")
+	public String showHome() {
+		return "redirect:/mpaUsr/home/main";
+	}
+	
 	@RequestMapping("/mpaUsr/home/main")// http://localhost:8024//mpaUsr/home/main
-	//@ResponseBody
 	public String showMain() {
 		return "mpaUsr/home/main";
 	}
