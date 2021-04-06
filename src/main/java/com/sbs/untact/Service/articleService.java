@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sbs.untact.dao.articleDao;
 import com.sbs.untact.dto.Article;
+import com.sbs.untact.dto.Board;
 import com.sbs.untact.dto.ResultData;
 import com.sbs.untactTeacher.util.Util;
 
@@ -65,5 +66,9 @@ public class articleService {
 	public Article getArticleById(int id) {
 		
 		return ArticleDao.getArticleById(id);
+	}
+	
+	public Board getBoardById(int id) {
+		return ArticleDao.getBoardById(id);
 	}
 }

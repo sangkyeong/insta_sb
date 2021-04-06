@@ -1,15 +1,10 @@
 package com.sbs.untact.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
-import com.sbs.untact.dto.Article;
-import com.sbs.untactTeacher.util.Util;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.sbs.untact.dto.Article;
+import com.sbs.untact.dto.Board;
 
 
 @Mapper
@@ -24,4 +19,6 @@ public interface articleDao {
 	 void writeArticle(@Param("boardId")int boardId, @Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
 
 	 Article getArticleById(@Param("id")int id);
+
+	 Board getBoardById(@Param("id") int id);
 }

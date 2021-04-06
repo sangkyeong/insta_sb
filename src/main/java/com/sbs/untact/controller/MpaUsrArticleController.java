@@ -16,6 +16,7 @@ import lombok.Data;
 
 import com.sbs.untact.Service.articleService;
 import com.sbs.untact.dto.Article;
+import com.sbs.untact.dto.Board;
 import com.sbs.untact.dto.ResultData;
 
 @Controller
@@ -82,6 +83,12 @@ public class MpaUsrArticleController {
 	
 	@RequestMapping("/mpaUsr/article/list")
 	public String showlist(int boardId) {
+		
+		Board board = ArticleService.getBoardById(boardId);
+		
+		if(board == null) {
+			return "존재하지 않는 게시판입니다.";
+		}
 		
 		return "mpaUsr/article/list";
 
