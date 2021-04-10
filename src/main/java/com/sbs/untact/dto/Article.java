@@ -2,12 +2,16 @@ package com.sbs.untact.dto;
 
 import com.sbs.untact.controller.MpaUsrArticleController;
 
+
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public @AllArgsConstructor
+
 @Data
-class Article {
+public class Article {
 
 	// getter와 setter를 알아서 해줌
 
