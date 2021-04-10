@@ -85,7 +85,7 @@ public class MpaUsrArticleController {
 	}
 
 	@RequestMapping("/mpaUsr/article/list")
-	public String showList(HttpServletRequest req, int boardId, @RequestParam(defaultValue = "1") int page) {
+	public String showList(HttpServletRequest req, int boardId, String searchKeyword ,@RequestParam(defaultValue = "1") int page) {
 		Board board = ArticleService.getBoardById(boardId);
 
 		if (board == null) {
@@ -94,7 +94,8 @@ public class MpaUsrArticleController {
 
 		req.setAttribute("board", board);
 
-		int totalItemsCount = ArticleService.getArticlesTotalCount(boardId);
+		int totalItemsCount = ArticleService.getArticlesTotalCount(boardId, searchKeyword);
+
 
 		req.setAttribute("totalItemsCount", totalItemsCount);
 
@@ -107,7 +108,7 @@ public class MpaUsrArticleController {
 		req.setAttribute("page", page);
 		req.setAttribute("totalPage", totalPage);
 
-		List<Article> articles = ArticleService.getForPrintArticles(boardId, itemsCountInAPage, page);
+		List<Article> articles = ArticleService.getForPrintArticles(boardId, searchKeyword, itemsCountInAPage, page);
 
 		System.out.println("articles : " + articles);
 
