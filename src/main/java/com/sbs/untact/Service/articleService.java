@@ -45,7 +45,7 @@ public class articleService {
 		Article article = getArticleById(id);
 
 		if (isEmpty(article)) {
-			return new ResultData("F-1", "게시물이 존재하지 않습니다.", "id", id);
+			return new ResultData("F-1", "게시물이 존재하지 않습니다.", "id", id,  "boardId", article.getBoardId());
 		}
 
 		ArticleDao.deleteArticleById(id);
