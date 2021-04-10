@@ -85,8 +85,13 @@ public class MpaUsrArticleController {
 	}
 
 	@RequestMapping("/mpaUsr/article/list")
-	public String showList(HttpServletRequest req, int boardId, String searchKeyword ,@RequestParam(defaultValue = "1") int page) {
+	public String showList(HttpServletRequest req, int boardId, String searchKeywordType, String searchKeyword ,@RequestParam(defaultValue = "1") int page) {
 		Board board = ArticleService.getBoardById(boardId);
+		
+		if(searchKeywordType==null || searchKeyword==null ) {
+			searchKeywordType = null;
+			searchKeyword = null;
+		}
 
 		if (board == null) {
 			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
@@ -94,7 +99,7 @@ public class MpaUsrArticleController {
 
 		req.setAttribute("board", board);
 
-		int totalItemsCount = ArticleService.getArticlesTotalCount(boardId, searchKeyword);
+		int totalItemsCount = ArticleService.getArticlesTotalCount(boardId, searchKeywordType, searchKeyword);
 
 
 		req.setAttribute("totalItemsCount", totalItemsCount);
@@ -108,7 +113,7 @@ public class MpaUsrArticleController {
 		req.setAttribute("page", page);
 		req.setAttribute("totalPage", totalPage);
 
-		List<Article> articles = ArticleService.getForPrintArticles(boardId, searchKeyword, itemsCountInAPage, page);
+		List<Article> articles = ArticleService.getForPrintArticles(boardId, searchKeywordType, searchKeyword, itemsCountInAPage, page);
 
 		System.out.println("articles : " + articles);
 

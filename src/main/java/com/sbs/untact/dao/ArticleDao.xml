@@ -55,12 +55,28 @@
 		SELECT COUNT(*) AS cnt
 		FROM article AS A
 		WHERE A.boardId = #{boardId}
-		<if test="searchKeyword != null and searchKeyword != ''">
-			AND (
-			A.title LIKE CONCAT('%',#{searchKeyword},'%')
-			OR
-			A.`body` LIKE CONCAT('%',#{searchKeyword},'%')
-			)
+		<if test="searchKeyword != null">
+			<if
+				test="searchKeywordType == null or searchKeywordType == 'titleAndBody'">
+				AND (
+				A.title LIKE CONCAT('%',#{searchKeyword},'%')
+				OR
+				A.`body`
+				LIKE CONCAT('%',#{searchKeyword},'%')
+				)
+			</if>
+			<if test="searchKeywordType == 'title'">
+				AND (
+				A.title LIKE CONCAT('%',#{searchKeyword},'%')
+				)
+			</if>
+			<if test="searchKeywordType == 'body'">
+				AND( 
+				A.`body` LIKE CONCAT('%',#{searchKeyword},'%')
+				)
+			</if>
+
+			
 		</if>
 		AND A.delStatus = 0
 	</select>
@@ -69,12 +85,28 @@
 		SELECT *
 		FROM article AS A
 		WHERE A.boardId = #{boardId}
-		<if test="searchKeyword != null and searchKeyword != ''">
-			AND (
-			A.title LIKE CONCAT('%',#{searchKeyword},'%')
-			OR
-			A.`body` LIKE CONCAT('%',#{searchKeyword},'%')
-			)
+		<if test="searchKeyword != null">
+			<if
+				test="searchKeywordType == null or searchKeywordType == 'titleAndBody'">
+				AND (
+				A.title LIKE CONCAT('%',#{searchKeyword},'%')
+				OR
+				A.`body`
+				LIKE CONCAT('%',#{searchKeyword},'%')
+				)
+			</if>
+			<if test="searchKeywordType == 'title'">
+				AND (
+				A.title LIKE CONCAT('%',#{searchKeyword},'%')
+				)
+			</if>
+			<if test="searchKeywordType == 'body'">
+				AND( 
+				A.`body` LIKE CONCAT('%',#{searchKeyword},'%')
+				)
+			</if>
+
+			
 		</if>
 		ORDER BY A.id DESC
 		LIMIT #{limitFrom}, #{limitTake};
