@@ -78,8 +78,7 @@ public class MpaUsrArticleController {
 		Board board = ArticleService.getBoardById(boardId);
 		
 		if(board == null) {
-			req.setAttribute("msg", boardId+"번이 존재하지 않습니다.");
-			return "common/redirect";
+			return  msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
 		}
 		
 		req.setAttribute("board", board);
@@ -105,6 +104,11 @@ public class MpaUsrArticleController {
 
 		return new ResultData("S-1", id + "번 글입니다.", "article", article);
 
+	}
+	
+	private String msgAndBack(HttpServletRequest req, String msg) {
+		req.setAttribute("msg", msg);
+		return "common/redirect";
 	}
 
 }
