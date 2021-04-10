@@ -6,4 +6,11 @@
 <c:set var="pagetitle" value="<span><i class='far fa-clipboard'></i></span> <span>${board.name} 게시물 리스트 </span>"/>
 
 <%@ include file="../common/header.jspf" %>
+
+<div class="section section-article-list">
+	<div class="container mx-auto">
+		<span>TOTAL ITEMS : </span>
+		<span>${totalItemsCount}</span>
+	</div>
+</div>
 <%@ include file="../common/footer.jspf" %>

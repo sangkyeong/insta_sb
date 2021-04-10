@@ -49,6 +49,12 @@
 		WHERE id = #{id}
 	</update>
 	
+	<select id="getArticlesTotalCount" resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article AS A
+		WHERE A.boardId = #{boardId}
+		AND A.delStatus = 0
+	</select>
 	
 
 </mapper>
