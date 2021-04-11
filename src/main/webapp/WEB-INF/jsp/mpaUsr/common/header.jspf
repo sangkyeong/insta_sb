@@ -81,9 +81,24 @@
 		</header>
 
 		<div class="title-bar">
-			<div class="containar mx-auto">
-
-				${pagetitle}
+			<div class="containar mx-auto">${pagetitle}
+			<div class="search-form-box"	align="center">
+			<form action="" method="get" class="boarder-2 boarder-black">
+				<input type="hidden" name="boardId" value="${board.id}">
+					
+						<select name="searchKeywordType">
+							<option value="title">제목</option>
+							<option value="body">내용</option>
+							<option value="titleAndBody">제목+내용</option>
+						</select> 
+				
+					<input type="text" name="searchKeyword" placeholder="검색하세요." maxlength="20" >
+				
+					<input type="submit"	class="btn btn-xs btn-primary"value="검색">
+					
+				
+			</form>
+			</div>
 			</div>
 
 		</div>
