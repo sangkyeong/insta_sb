@@ -45,13 +45,37 @@
 		</div>
 		
 		<div class="pages">
-			<c:forEach var="i" begin="1" end="${totalPage}">
-				<c:set var="url" value="?boardId=${board.id}" />
+		<c:set var="pageMenuArmSize" value="4"	/>
+			<c:set var="startPage" value="${page - pageMenuArmSize >= 1 ? page - pageMenuArmSize : 1}"	/>
+			<c:set var="endPage" value="${page + pageMenuArmSize <= totalPage ? page + pageMenuArmSize : totalPage}"	/>
+			
+			<c:set var="url" value="?boardId=${board.id}" />
 				<c:set var="url" value="${url}&searchKeywordType=${param.searchKeywordType}" />
 				<c:set var="url" value="${url}&searchKeyword=${param.searchKeyword}" />
-				<c:set var="url" value="${url}&page=${i}" />
-				<a class="text-lg ${page == i ? 'text-red-500' : ''}" href="${url}">${i}</a>
+				
+			<c:if test="${startPage > 1}">
+			<a class="text-lg" href="${url}&page=1">◀◀</a>
+			<a class="text-lg" href="${url}&page=${startPage - 1}">◀</a>
+			</c:if>
+			<c:forEach var="i" begin="${startPage}" end="${endPage}">
+
+				
+				<a class="text-lg ${page == i ? 'text-red-500' : ''}" href="${url}&page=${i}">${i}</a>
+				
+				
 			</c:forEach>
+			
+
+			
+			<c:if test="${endPage < totalPage}">
+			<a class="text-lg" href="${url}&page=${endPage + 1}">▶</a>
+			<a class="text-lg" href="${url}&page=${totalPage}">▶▶</a>
+			
+			</c:if>
+			
+			
+			
+			
 		</div>
 		
 
