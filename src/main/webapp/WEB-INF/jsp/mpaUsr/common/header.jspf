@@ -90,8 +90,16 @@
 							<option value="title">제목</option>
 							<option value="body">내용</option>
 							<option value="titleAndBody">제목+내용</option>
-						</select> 
-				
+						</select>
+						 
+						<script type="text/javascript">
+						const param_searchKeywordType= '${param.searchKeywordType}';
+						if(param_searchKeywordType.length > 0 ){
+							$('.search-form-box form [name="searchKeywordType"]')
+							.val('${param.searchKeywordType}')
+						}
+						
+						</script>
 					<input type="text" name="searchKeyword" placeholder="검색하세요." maxlength="20" >
 				
 					<input type="submit"	class="btn btn-xs btn-primary"value="검색">

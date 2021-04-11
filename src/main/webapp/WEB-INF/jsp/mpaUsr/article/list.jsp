@@ -24,7 +24,9 @@
 
 		<hr />
 		<hr />
-
+<c:if test="${articles == null || articles.size() == 0}">
+				검색결과가 존재하지 않습니다.
+			</c:if>
 		<div class="articles">
 			<c:forEach items="${articles}" var="article">
 				<div>
@@ -36,4 +38,7 @@
 				<hr />
 			</c:forEach>
 		</div>
+
+
+
 <%@ include file="../common/footer.jspf" %>
