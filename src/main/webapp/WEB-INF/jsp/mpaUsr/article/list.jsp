@@ -7,7 +7,7 @@
 
 <%@ include file="../common/header.jspf" %>
 
-<div class="total-items">
+		<div class="total-items">
 			<span>TOTAL ITEMS : </span>
 			<span>${totalItemsCount}</span>
 		</div>
@@ -24,7 +24,7 @@
 
 		<hr />
 		<hr />
-<c:if test="${articles == null || articles.size() == 0}">
+	<c:if test="${articles == null || articles.size() == 0}">
 				검색결과가 존재하지 않습니다.
 			</c:if>
 		<div class="articles">
@@ -34,10 +34,28 @@
 					REG DATE : ${article.regDate}<br>
 					UPDATE DATE : ${article.updateDate}<br>
 					TITLE : ${article.title}<br>
+					
+					
 				</div>
 				<hr />
 			</c:forEach>
+			
+			
+
 		</div>
+		
+		<div class="pages">
+			<c:forEach var="i" begin="1" end="${totalPage}">
+				<c:set var="url" value="?boardId=${board.id}" />
+				<c:set var="url" value="${url}&searchKeywordType=${param.searchKeywordType}" />
+				<c:set var="url" value="${url}&searchKeyword=${param.searchKeyword}" />
+				<c:set var="url" value="${url}&page=${i}" />
+				<a class="text-lg ${page == i ? 'text-red-500' : ''}" href="${url}">${i}</a>
+			</c:forEach>
+		</div>
+		
+
+	
 
 
 
