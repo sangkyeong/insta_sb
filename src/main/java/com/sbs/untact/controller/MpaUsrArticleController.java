@@ -141,6 +141,19 @@ public class MpaUsrArticleController {
 		return new ResultData("S-1", id + "번 글입니다.", "article", article);
 
 	}
+	
+	@RequestMapping("/mpaUsr/article/write")
+	public String showWrite(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId) {
+		Board board = ArticleService.getBoardById(boardId);
+
+		if (board == null) {
+			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
+		}
+
+		req.setAttribute("board", board);
+
+		return "mpaUsr/article/write";
+	}
 
 	private String msgAndBack(HttpServletRequest req, String msg) {
 		req.setAttribute("msg", msg);
