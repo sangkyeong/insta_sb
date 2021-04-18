@@ -53,10 +53,8 @@ public class articleService {
 		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id);
 	}
 
-	public ResultData writeArticle(String title, String body) {
+	public ResultData writeArticle(int boardId, int memberId, String title, String body) {
 		
-		int boardId = 3; // 가짜 데이터
-		int memberId = 3; // 가짜 데이터
 		ArticleDao.writeArticle(boardId, memberId, title, body);
 		int id = ArticleDao.getLastInsertId();
 
@@ -85,6 +83,9 @@ public class articleService {
 	
 	}
 	
+	public Article getForPrintArticleById(int id) {
+		return ArticleDao.getForPrintArticleById(id);
+	}
 	
 	
 }
