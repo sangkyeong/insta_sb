@@ -30,21 +30,21 @@ public class MpaUsrArticleController {
 	public String doWrite(HttpServletRequest req, String title, String body) {
 
 		if (Util.isEmpty(title)) {
-			return msgAndBack(req, "제목을 입력해주세요.");
+			return Util.msgAndBack(req, "제목을 입력해주세요.");
 		}
 
 		if (Util.isEmpty(body)) {
-			return msgAndBack(req, "내용을 입력해주세요.");
+			return Util.msgAndBack(req, "내용을 입력해주세요.");
 		}
 
 		ResultData writeArticleRd = ArticleService.writeArticle(title, body);
 
 		if ( writeArticleRd.isFail() ) {
-			return msgAndBack(req, writeArticleRd.getMsg());
+			return Util.msgAndBack(req, writeArticleRd.getMsg());
 		}
 
 		String replaceUrl = "detail?id=" + writeArticleRd.getBody().get("id");
-		return msgAndPlace(req, writeArticleRd.getMsg(), replaceUrl);
+		return Util.msgAndPlace(req, writeArticleRd.getMsg(), replaceUrl);
 	}
 
 	@RequestMapping("/mpaUsr/article/doDelete")
@@ -52,18 +52,18 @@ public class MpaUsrArticleController {
 	public String doDelete(HttpServletRequest req, Integer id) {
 
 		if (Util.isEmpty(id)) {
-			return msgAndBack(req, "id를 입력해주세요.");
+			return Util.msgAndBack(req, "id를 입력해주세요.");
 		}
 
 		ResultData rd = ArticleService.deleteArticleById(id);
 
 		if (rd.isFail()) {
-			return msgAndBack(req, rd.getMsg());
+			return Util.msgAndBack(req, rd.getMsg());
 		}
 
 		String redirectUrl = "../article/list?boardId=" + rd.getBody().get("boardId");
 
-		return msgAndPlace(req, rd.getMsg(), redirectUrl);
+		return Util.msgAndPlace(req, rd.getMsg(), redirectUrl);
 	}
 
 	@RequestMapping("/mpaUsr/article/doModify")
@@ -100,7 +100,7 @@ public class MpaUsrArticleController {
 		}
 
 		if (board == null) {
-			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
+			return Util.msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
 		}
 
 		req.setAttribute("board", board);
@@ -153,24 +153,16 @@ public class MpaUsrArticleController {
 		Board board = ArticleService.getBoardById(boardId);
 
 		if (board == null) {
-			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
+			return Util.msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
 		}
 
 		req.setAttribute("board", board);
 
 		return "mpaUsr/article/write";
 	}
+	
 
-	private String msgAndBack(HttpServletRequest req, String msg) {
-		req.setAttribute("msg", msg);
-		req.setAttribute("historyBack", true);
-		return "common/redirect";
-	}
 
-	private String msgAndPlace(HttpServletRequest req, String msg, String replaceUrl) {
-		req.setAttribute("msg", msg);
-		req.setAttribute("replaceUrl", replaceUrl);
-		return "common/redirect";
-	}
+
 
 }
