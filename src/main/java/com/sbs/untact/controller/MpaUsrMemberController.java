@@ -1,5 +1,8 @@
 package com.sbs.untact.controller;
 
+import java.lang.reflect.Member;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,59 +11,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.untact.Service.articleService;
+import com.sbs.untact.Service.memberService;
 import com.sbs.untact.dto.Board;
+import com.sbs.untact.dto.ResultData;
 import com.sbs.untactTeacher.util.Util;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class MpaUsrMemberController {
+    @Autowired
+    private memberService memberService;
 
-	@Autowired
-	private articleService ArticleService;
-
-	public MpaUsrMemberController() {
-
+	
+	@RequestMapping("/mpaUsr/member/join")
+	public String join(HttpServletRequest req) {
+		return "mpaUsr/member/join";
 	}
 
 
-	@RequestMapping("/mpaUsr/member/join")
-	@ResponseBody
-	public String join(HttpServletRequest req, String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
-		//Board board = ArticleService.getBoardById(boardId);
+	@RequestMapping("/mpaUsr/member/dojoin")
+	public String dojoin(HttpServletRequest req,String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
+		Member oldMember = memberService.getMemberByLoginId(loginId);
 
-		if (Util.isEmpty(loginId)) {
-			return Util.msgAndBack(req, "아이디를 입력해주세요.");
-		}
+        if (oldMember != null) {
+            return Util.msgAndBack(req, loginId + "(은)는 이미 사용중인 로그인아이디 입니다.");
+        }
 
-		if (Util.isEmpty(loginPw)) {
-			return Util.msgAndBack(req, "비밀번호를 입력해주세요.");
-		}
-		
-		if (Util.isEmpty(name)) {
-			return Util.msgAndBack(req, "이름을 입력해주세요.");
-		}
-		
-		if (Util.isEmpty(nickname)) {
-			return Util.msgAndBack(req, "닉네임을 입력해주세요.");
-		}
-		
-		if (Util.isEmpty(email)) {
-			return Util.msgAndBack(req, "이메일을 입력해주세요.");
-		}
-		
-		if (Util.isEmpty(cellphoneNo)) {
-			return Util.msgAndBack(req, "휴대폰번호를 입력해주세요.");
-		}
-		
-		Util.mapOf(loginId, loginPw, name, nickname, email, cellphoneNo);
-		
-		/*
-		if (board == null) {
-			return Util.msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
-		}*/
+        ResultData joinRd = memberService.dojoin(loginId, loginPw, name, nickname, email, cellphoneNo );
 
-		//req.setAttribute("board", board);
+        if (joinRd.isFail()) {
+            return Util.msgAndBack(req, joinRd.getMsg());
+        }
 
-		return "mpaUsr/member/join";
+        return Util.msgAndPlace(req, joinRd.getMsg(), "/");
 	}
 
 

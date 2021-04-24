@@ -52,7 +52,7 @@ function join__submitForm(form) {
 </script>
 <div class="section section-article-list">
 	<div class="container mx-auto">
-	    <form method="POST" action="join" onsubmit="join__submitForm(this); return false;">
+	    <form method="POST" action="dojoin" onsubmit="join__submitForm(this); return false;">
 	    
 	        <div class="form-control">
                 <label class="label">
