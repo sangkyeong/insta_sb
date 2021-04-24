@@ -29,7 +29,7 @@ public class memberService {
 	}
 
 
-	public Member getMemberByLoginId(String loginId) {
+	public member getMemberByLoginId(String loginId) {
 		// TODO Auto-generated method stub
 		return MemberDao.getMemberByLoginId(loginId);
 	}
