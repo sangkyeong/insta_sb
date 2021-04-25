@@ -47,8 +47,17 @@ public class MpaUsrMemberController {
         session.setAttribute("loginedMemberId", member.getId());
 
         String msg = "환영합니다.";
-        return Util.msgAndPlace(req, msg, redirectUrl);
+        return Util.msgAndPlace(req, msg, "/");
 	}
+	
+	@RequestMapping("/mpaUsr/member/dologout")
+    public String doLogout(HttpServletRequest req, HttpSession session) {
+        session.removeAttribute("loginedMemberId");
+
+        String msg = "로그아웃 되었습니다.";
+        return Util.msgAndPlace(req, msg, "/");
+    }
+
     
     
 	@RequestMapping("/mpaUsr/member/join")

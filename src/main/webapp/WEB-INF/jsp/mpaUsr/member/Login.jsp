@@ -29,6 +29,7 @@ function login__submitForm(form) {
 </script>
 <div class="section section-article-list">
 	<div class="container mx-auto">
+	<c:if test="${rq.isNotLogined()}">
 	    <form method="POST" action="dologin" onsubmit="login__submitForm(this); return false;">
 	    
 	        <div class="form-control">
@@ -46,7 +47,7 @@ function login__submitForm(form) {
             </div>
 
             <div class="mt-4 btn-wrap gap-1">
-                <button type="submit" href="" class="btn btn-primary btn-sm mb-1">
+                <button type="submit" href="../home/main" class="btn btn-primary btn-sm mb-1">
                     <span><i class="fas fa-check"></i></span>
                     &nbsp;
                     <span>로그인</span>
@@ -61,6 +62,9 @@ function login__submitForm(form) {
                 </button>
             </div>
 	    </form>
+	    </c:if>
+
+	    
 	</div>
 </div>
 

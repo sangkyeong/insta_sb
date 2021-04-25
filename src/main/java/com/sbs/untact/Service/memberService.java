@@ -30,8 +30,14 @@ public class memberService {
 
 
 	public member getMemberByLoginId(String loginId) {
-		// TODO Auto-generated method stub
+	
 		return MemberDao.getMemberByLoginId(loginId);
+	}
+
+
+	public member getMemberById(int id) {
+		return MemberDao.getMemberById(id);
+	
 	}
 	
 	

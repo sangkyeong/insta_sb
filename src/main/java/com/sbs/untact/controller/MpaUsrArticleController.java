@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sbs.untact.Service.articleService;
 import com.sbs.untact.dto.Article;
 import com.sbs.untact.dto.Board;
+import com.sbs.untact.dto.Rq;
 import com.sbs.untact.dto.ResultData;
 import com.sbs.untactTeacher.util.Util;
 
@@ -28,7 +29,7 @@ public class MpaUsrArticleController {
 
 	@RequestMapping("/mpaUsr/article/doWrite")
 	public String doWrite(HttpServletRequest req, int boardId, String title, String body) {
-
+		
 		if (Util.isEmpty(title)) {
 			return Util.msgAndBack(req, "제목을 입력해주세요.");
 		}
@@ -50,6 +51,8 @@ public class MpaUsrArticleController {
 
 	@RequestMapping("/mpaUsr/article/doDelete")
 	public String doDelete(HttpServletRequest req, Integer id) {
+		
+		
 
 		if (Util.isEmpty(id)) {
 			return Util.msgAndBack(req, "id를 입력해주세요.");
@@ -69,6 +72,8 @@ public class MpaUsrArticleController {
 	@RequestMapping("/mpaUsr/article/doModify")
 	@ResponseBody
 	public ResultData doModify(Integer id, String title, String body) {
+		
+		
 		if (Util.isEmpty(id)) {
 			return new ResultData("F-1", "번호를 입력해주세요.");
 		}
@@ -151,6 +156,8 @@ public class MpaUsrArticleController {
 	
     @RequestMapping("/mpaUsr/article/detail")
     public String showDetail(HttpServletRequest req, int id) {
+    	
+    	
     	Article article = ArticleService.getForPrintArticleById(id);
 
 		if (article == null) {
@@ -167,7 +174,10 @@ public class MpaUsrArticleController {
     
     @RequestMapping("/mpaUsr/article/write")
     public String showWrite(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId) {
-        Board board = ArticleService.getBoardById(boardId);
+        
+    	
+    	
+    	Board board = ArticleService.getBoardById(boardId);
         if (board == null) {
             return Util.msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
         }
