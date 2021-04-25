@@ -1,10 +1,14 @@
 package com.sbs.untact.dto;
 
+import com.sbs.untactTeacher.util.Util;
+
 public class Rq {
 	   private member loginedMember;
+	   private String currentUrl;
 
-	    public Rq(member loginedMember) {
+	    public Rq(member loginedMember, String currentUrl) {
 	        this.loginedMember = loginedMember;
+	        this.currentUrl = currentUrl;
 	    }
 
 	    public boolean isLogined() {
@@ -31,4 +35,15 @@ public class Rq {
 	        return loginedMember.getNickname();
 	    }
 	
+	    public String getEncodedCurrentUrl() {
+	        return Util.getUrlEncoded(getCurrentUrl());
+	    }
+
+	    private String getCurrentUrl() {
+	        return currentUrl;
+	    }
+	    
+	    public String getLoginPageUrl() {
+	        return "../member/login?afterLoginUrl=" + getEncodedCurrentUrl();
+	    }
 }

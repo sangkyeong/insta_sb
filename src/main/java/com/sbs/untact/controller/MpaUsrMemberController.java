@@ -34,6 +34,10 @@ public class MpaUsrMemberController {
 
 	@RequestMapping("/mpaUsr/member/dologin")
 	public String dologin(HttpSession session, HttpServletRequest req,String loginId, String loginPw, String redirectUrl) {
+		if ( Util.isEmpty(redirectUrl) ) {
+            redirectUrl = "/";
+        }
+
 		member member = memberService.getMemberByLoginId(loginId);
 
         if (member == null) {

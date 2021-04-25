@@ -47,7 +47,7 @@ function login__submitForm(form) {
             </div>
 
             <div class="mt-4 btn-wrap gap-1">
-                <button type="submit" href="../home/main" class="btn btn-primary btn-sm mb-1">
+                <button type="submit" href="${param.afterLoginUrl}" class="btn btn-primary btn-sm mb-1">
                     <span><i class="fas fa-check"></i></span>
                     &nbsp;
                     <span>로그인</span>
