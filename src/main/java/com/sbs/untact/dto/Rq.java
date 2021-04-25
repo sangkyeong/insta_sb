@@ -1,13 +1,20 @@
 package com.sbs.untact.dto;
 
+import java.util.Map;
+
 import com.sbs.untactTeacher.util.Util;
 
 public class Rq {
 	   private member loginedMember;
 	   private String currentUrl;
+	   private Map<String, String> paramMap;
+	   private String currentUri;
 
-	    public Rq(member loginedMember, String currentUrl) {
+	    public Rq(member loginedMember, String currentUrl, Map<String, String> paramMap) {
 	        this.loginedMember = loginedMember;
+	        this.currentUrl = currentUrl;
+	        this.paramMap = paramMap;
+	        this.currentUri = currentUrl.split("\\?")[0];
 	        this.currentUrl = currentUrl;
 	    }
 
@@ -44,6 +51,19 @@ public class Rq {
 	    }
 	    
 	    public String getLoginPageUrl() {
-	        return "../member/login?afterLoginUrl=" + getEncodedCurrentUrl();
-	    }
+	    	 String afterLoginUrl;
+
+	         if (isLoginPage()) {
+	             afterLoginUrl = Util.getUriEncoded(paramMap.get("afterLoginUrl"));
+	         } else {
+	             afterLoginUrl = getEncodedCurrentUrl();
+	         }
+
+	         return "../member/Login?afterLoginUrl=" + afterLoginUrl;
+	     }
+
+	     private boolean isLoginPage() {
+	         return currentUrl.equals("/mpaUsr/member/Login");
+	     }
+	    
 }

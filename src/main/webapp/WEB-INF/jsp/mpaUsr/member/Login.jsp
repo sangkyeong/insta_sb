@@ -60,6 +60,20 @@ function login__submitForm(form) {
                     <span>초기화</span>
                 </a>
                 </button>
+                
+                <a href="../member/findLoginId" type="submit" href="#" class="btn btn-link btn-sm mb-1">
+                    <span><i class="fas fa-sign-in-alt"></i></span>
+                    &nbsp;
+                    <span>아이디 찾기</span>
+                </a>
+
+                <a href="../member/findLoginPw" type="submit" href="#" class="btn btn-link btn-sm mb-1">
+                    <span><i class="fas fa-sign-in-alt"></i></span>
+                    &nbsp;
+                    <span>비밀번호 찾기</span>
+                </a>
+
+                
             </div>
 	    </form>
 	    </c:if>

@@ -1,5 +1,7 @@
 package com.sbs.untact.interceptor;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.sbs.untact.Service.memberService;
 import com.sbs.untact.dto.Rq;
 import com.sbs.untact.dto.member;
+import com.sbs.untactTeacher.util.Util;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +26,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor{
 	@Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 		HttpSession session = req.getSession();
+		
+		 Map<String, String> paramMap = Util.getParamMap(req);
 
         member loginedMember = null;
         int loginedMemberId = 0;
@@ -42,7 +47,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor{
             currentUrl += "?" + queryString;
         }
 
-        req.setAttribute("rq", new Rq(loginedMember, currentUrl));
+        req.setAttribute("rq", new Rq(loginedMember, currentUrl, paramMap));
 
 		
 		return HandlerInterceptor.super.preHandle(req, resp, handler);

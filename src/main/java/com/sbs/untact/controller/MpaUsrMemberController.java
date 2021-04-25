@@ -54,6 +54,36 @@ public class MpaUsrMemberController {
         return Util.msgAndPlace(req, msg, "/");
 	}
 	
+	@RequestMapping("/mpaUsr/member/findLoginPw")
+    public String showFindLoginPw(HttpServletRequest req) {
+        return "mpaUsr/member/findLoginPw";
+    }
+
+    @RequestMapping("/mpaUsr/member/doFindLoginPw")
+    public String doFindLoginPw(HttpServletRequest req, String loginId, String name, String email, String redirectUri) {
+        if (Util.isEmpty(redirectUri)) {
+            redirectUri = "/";
+        }
+
+        member Member = memberService.getMemberByLoginId(loginId);
+
+        if (Member == null) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+
+        if (Member.getName().equals(name) == false) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+
+        if (Member.getEmail().equals(email) == false) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+
+        ResultData notifyTempLoginPwByEmailRs = memberService.notifyTempLoginPwByEmail(Member);
+
+        return Util.msgAndPlace(req, notifyTempLoginPwByEmailRs.getMsg(), redirectUri);
+    }
+	
 	@RequestMapping("/mpaUsr/member/dologout")
     public String doLogout(HttpServletRequest req, HttpSession session) {
         session.removeAttribute("loginedMemberId");
@@ -86,6 +116,26 @@ public class MpaUsrMemberController {
 
         return Util.msgAndPlace(req, joinRd.getMsg(), "/");
 	}
+	
+	@RequestMapping("/mpaUsr/member/findLoginId")
+    public String showFindLoginId(HttpServletRequest req) {
+        return "mpaUsr/member/findLoginId";
+    }
+
+    @RequestMapping("/mpaUsr/member/doFindLoginId")
+    public String doFindLoginId(HttpServletRequest req, String name, String email, String redirectUri) {
+        if (Util.isEmpty(redirectUri)) {
+            redirectUri = "/";
+        }
+
+        member Member = memberService.getMemberByNameAndEmail(name, email);
+
+        if (Member == null) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+
+        return Util.msgAndBack(req, String.format("회원님의 아이디는 `%s` 입니다.", Member.getLoginId()));
+    }
 
 
 }
