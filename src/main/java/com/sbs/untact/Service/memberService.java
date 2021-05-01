@@ -33,6 +33,8 @@ public class memberService {
 	
 	
 	public ResultData dojoin(String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
+		loginPw = Util.sha256(loginPw);
+		
 		MemberDao.memberJoin(loginId, loginPw, name, nickname, email, cellphoneNo);
 		return new ResultData("S-1", "가입완료");
 	}
@@ -71,6 +73,7 @@ public class memberService {
     }
 
     private void setTempPassword(member actor, String tempPassword) {
+    	tempPassword = Util.sha256(tempPassword);
         MemberDao.modify(actor.getId(), tempPassword, null, null, null, null);
     }
 	
