@@ -33,9 +33,10 @@ public class memberService {
 	
 	
 	public ResultData dojoin(String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
-		loginPw = Util.sha256(loginPw);
+		
 		
 		MemberDao.memberJoin(loginId, loginPw, name, nickname, email, cellphoneNo);
+		int id = MemberDao.getLastInsertId();
 		return new ResultData("S-1", "가입완료");
 	}
 
@@ -67,14 +68,17 @@ public class memberService {
             return sendResultData;
         }
 
+        tempPassword = Util.sha256(tempPassword);
+        
         setTempPassword(actor, tempPassword);
 
         return new ResultData("S-1", "계정의 이메일주소로 임시 패스워드가 발송되었습니다.");
     }
 
     private void setTempPassword(member actor, String tempPassword) {
-    	tempPassword = Util.sha256(tempPassword);
+    	
         MemberDao.modify(actor.getId(), tempPassword, null, null, null, null);
     }
+
 	
 }

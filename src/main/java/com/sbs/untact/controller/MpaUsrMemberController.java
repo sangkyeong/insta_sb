@@ -44,7 +44,7 @@ public class MpaUsrMemberController {
             return Util.msgAndBack(req, loginId + "(은)는 없는 로그인아이디 입니다.");
         }
         
-        if (member.getLoginPw().equals(Util.sha256(loginPw)) == false) {
+        if (member.getLoginPw().equals(loginPw) == false) {
             return Util.msgAndBack(req, "비밀번호가 일치하지 않습니다.");
         }
 
@@ -103,9 +103,14 @@ public class MpaUsrMemberController {
 	@RequestMapping("/mpaUsr/member/dojoin")
 	public String dojoin(HttpServletRequest req,String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
 		member oldMember = memberService.getMemberByLoginId(loginId);
-
+		member Member = memberService.getMemberByNameAndEmail(name, email);
+		
         if (oldMember != null) {
             return Util.msgAndBack(req, loginId + "(은)는 이미 사용중인 로그인아이디 입니다.");
+        }
+
+        if (Member != null) {
+            return Util.msgAndBack(req, "이미 존재하는 회원입니다.");
         }
 
         ResultData joinRd = memberService.dojoin(loginId, loginPw, name, nickname, email, cellphoneNo );

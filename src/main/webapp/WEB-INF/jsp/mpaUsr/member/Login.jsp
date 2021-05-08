@@ -4,6 +4,8 @@
 
 
 <%@ include file="../common/header.jspf"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
 <script>
 let login__submitFormDone = false;
 function login__submitForm(form) {
@@ -16,13 +18,15 @@ function login__submitForm(form) {
         form.loginId.focus();
         return;
     }
-    form.loginPw.value = form.loginPw.value.trim();
-    if ( form.loginPw.value.length == 0 ) {
+    form.loginPwInput.value = form.loginPwInput.value.trim();
+    if ( form.loginPwInput.value.length == 0 ) {
         alert('비밀번호를 입력해주세요.');
-        form.loginPw.focus();
+        form.loginPwInput.focus();
         return;
     }
-   
+    form.loginPw.value = sha256(form.loginPwInput.value);
+    form.loginPwInput.value = '';
+    
     form.submit();
     login__submitFormDone = true;
 }
@@ -31,7 +35,7 @@ function login__submitForm(form) {
 	<div class="container mx-auto">
 	<c:if test="${rq.isNotLogined()}">
 	    <form method="POST" action="dologin" onsubmit="login__submitForm(this); return false;">
-	    
+	    <input type="hidden" name="loginPw" />
 	        <div class="form-control">
                 <label class="label">
                     아이디
@@ -43,7 +47,7 @@ function login__submitForm(form) {
                 <label class="label">
                     비밀번호
                 </label>
-                <input class="input input-bordered w-full" type="password" maxlength="100" name="loginPw" placeholder="비밀번호를 입력해주세요." />
+                <input class="input input-bordered w-full" type="password" maxlength="100" name="loginPwInput" placeholder="비밀번호를 입력해주세요." />
             </div>
 
             <div class="mt-4 btn-wrap gap-1">

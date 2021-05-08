@@ -4,6 +4,8 @@
 
 
 <%@ include file="../common/header.jspf"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
 <script>
 let join__submitFormDone = false;
 function join__submitForm(form) {
@@ -16,12 +18,26 @@ function join__submitForm(form) {
         form.loginId.focus();
         return;
     }
-    form.loginPw.value = form.loginPw.value.trim();
-    if ( form.loginPw.value.length == 0 ) {
+    form.loginPwInput.value = form.loginPwInput.value.trim();
+    if ( form.loginPwInput.value.length == 0 ) {
         alert('비밀번호를 입력해주세요.');
-        form.loginPw.focus();
+        form.loginPwInput.focus();
         return;
     }
+    form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+    if ( form.loginPwConfirm.value.length == 0 ) {
+        alert('로그인비밀번호 확인을 입력해주세요.');
+        form.loginPwConfirm.focus();
+        return;
+    }
+    if ( form.loginPw.value != form.loginPwConfirm.value ) {
+    if ( form.loginPwInput.value != form.loginPwConfirm.value ) {
+        alert('로그인비밀번호가 일치하지 않습니다.');
+        form.loginPwConfirm.focus();
+        return;
+    }
+
+    
     form.name.value = form.name.value.trim();
     if ( form.name.value.length == 0 ) {
         alert('이름을 입력해주세요.');
@@ -46,6 +62,10 @@ function join__submitForm(form) {
         form.cellphoneNo.focus();
         return;
     }
+    form.loginPw.value = sha256(form.loginPwInput.value);
+    form.loginPwInput.value = '';
+    form.loginPwConfirm.value = '';
+    
     form.submit();
     join__submitFormDone = true;
 }
@@ -53,7 +73,7 @@ function join__submitForm(form) {
 <div class="section section-article-list">
 	<div class="container mx-auto">
 	    <form method="POST" action="dojoin" onsubmit="join__submitForm(this); return false;">
-	    
+	    <input type="hidden" name="loginPw">
 	        <div class="form-control">
                 <label class="label">
                     아이디
@@ -65,7 +85,7 @@ function join__submitForm(form) {
                 <label class="label">
                     비밀번호
                 </label>
-                <input class="input input-bordered w-full" type="password" maxlength="100" name="loginPw" placeholder="비밀번호를 입력해주세요." />
+                <input class="input input-bordered w-full" type="password" maxlength="100" name="loginPwInput" placeholder="비밀번호를 입력해주세요." />
             </div>
             
             <div class="form-control">
