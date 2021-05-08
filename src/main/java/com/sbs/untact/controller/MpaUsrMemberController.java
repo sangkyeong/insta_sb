@@ -151,6 +151,22 @@ public class MpaUsrMemberController {
         return Util.msgAndPlace(req, joinRd.getMsg(), "/");
 	}
 	
+	@RequestMapping("/mpaUsr/member/checkPassword")
+    public String showCheckPassword(HttpServletRequest req) {
+        return "mpaUsr/member/checkPassword";
+    }
+
+    @RequestMapping("/mpaUsr/member/doCheckPassword")
+    public String doCheckPassword(HttpServletRequest req, String loginPw, String redirectUri) {
+        member loginedMember = ((Rq) req.getAttribute("rq")).getLoginedMember();
+
+        if (loginedMember.getLoginPw().equals(loginPw) == false) {
+            return Util.msgAndBack(req, "비밀번호가 일치하지 않습니다.");
+        }
+
+        return Util.msgAndPlace(req, "", redirectUri);
+    }
+	
 	@RequestMapping("/mpaUsr/member/findLoginId")
     public String showFindLoginId(HttpServletRequest req) {
         return "mpaUsr/member/findLoginId";
