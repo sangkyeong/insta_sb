@@ -35,12 +35,6 @@ public class Rq {
 	    public member getLoginedMember() {
 	        return loginedMember;
 	    }
-
-	    public String getLoginedMemberNickname() {
-	        if (isNotLogined()) return "";
-
-	        return loginedMember.getNickname();
-	    }
 	
 	    public String getEncodedCurrentUrl() {
 	        return Util.getUrlEncoded(getCurrentUrl());

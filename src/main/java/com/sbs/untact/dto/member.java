@@ -18,4 +18,8 @@ public class member {
     private String nickname;
     private String email;
     private String cellphoneNo;
+    
+    public String getAuthLevelName() {
+        return "일반회원";
+    }
 } 

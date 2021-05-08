@@ -30,7 +30,7 @@ function join__submitForm(form) {
         form.loginPwConfirm.focus();
         return;
     }
-    if ( form.loginPw.value != form.loginPwConfirm.value ) {
+    
     if ( form.loginPwInput.value != form.loginPwConfirm.value ) {
         alert('로그인비밀번호가 일치하지 않습니다.');
         form.loginPwConfirm.focus();
@@ -70,7 +70,7 @@ function join__submitForm(form) {
     join__submitFormDone = true;
 }
 </script>
-<div class="section section-article-list">
+<div class="section section-join px-2">
 	<div class="container mx-auto">
 	    <form method="POST" action="dojoin" onsubmit="join__submitForm(this); return false;">
 	    <input type="hidden" name="loginPw">
@@ -86,6 +86,13 @@ function join__submitForm(form) {
                     비밀번호
                 </label>
                 <input class="input input-bordered w-full" type="password" maxlength="100" name="loginPwInput" placeholder="비밀번호를 입력해주세요." />
+            </div>
+            
+            <div class="form-control">
+                <label class="label">
+                    로그인비밀번호 확인
+                </label>
+                <input class="input input-bordered w-full" type="password" maxlength="100" name="loginPwConfirm" placeholder="로그인비밀번호 확인을 입력해주세요." />
             </div>
             
             <div class="form-control">

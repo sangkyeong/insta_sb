@@ -25,6 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 public class MpaUsrMemberController {
     @Autowired
     private memberService memberService;
+    
+    @RequestMapping("/mpaUsr/member/mypage")
+    public String showMypage(HttpServletRequest req) {
+        return "mpaUsr/member/mypage";
+    }
 
     @RequestMapping("/mpaUsr/member/Login")
 	public String login(HttpServletRequest req) {
