@@ -13,6 +13,7 @@ if ( historyBack ) {
 }
 const replaceUrl = '${replaceUrl}'.trim();
 if ( replaceUrl ) {
+	
 	location.replace(replaceUrl);
 }
 </script> 

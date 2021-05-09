@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="grid grid-item-float gap-3 mt-4">
-                    <a href="../member/checkPassword?afterUri=${Util.getUriEncoded('../member/modify')}" class="text-blue-500 hover:underline">
+                    <a href="../member/checkPassword?afterUrl=${Util.getUriEncoded('../member/modify')}" class="text-blue-500 hover:underline">
                         <span>
                             <i class="fas fa-edit"></i>
                             <span>수정</span>

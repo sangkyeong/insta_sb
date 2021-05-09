@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -65,6 +66,10 @@ function MemberModify__submitForm(form) {
 
 <div class="section section-member-modify px-2">
 	<div class="container mx-auto">
+	<% 
+		if(session.getAttribute("checkpasswordPw") == null)
+		out.println("<script>alert('잘못된 접근입니다!'); location.href='../member/mypage';</script>");
+	%>
 	    <form method="POST" action="doModify" onsubmit="MemberModify__submitForm(this); return false;">
 	        <input type="hidden" name="loginPw">
 	        <div class="form-control">
@@ -136,6 +141,7 @@ function MemberModify__submitForm(form) {
                     &nbsp;
                     <span>홈</span>
                 </a>
+                <% session.removeAttribute("checkpasswordPw"); %>
             </div>
 	    </form>
 	</div>

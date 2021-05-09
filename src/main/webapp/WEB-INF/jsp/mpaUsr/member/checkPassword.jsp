@@ -17,7 +17,7 @@ function MemberCheckPassword__submitForm(form) {
     }
     form.loginPwInput.value = form.loginPwInput.value.trim();
     if ( form.loginPwInput.value.length == 0 ) {
-        alert('로그인비밀번호을 입력해주세요.');
+        alert('로그인비밀번호를 입력해주세요.');
         form.loginPwInput.focus();
         return;
     }
@@ -31,7 +31,7 @@ function MemberCheckPassword__submitForm(form) {
 <div class="section section-login px-2">
 	<div class="container mx-auto">
 	    <form method="POST" action="doCheckPassword" onsubmit="MemberCheckPassword__submitForm(this); return false;">
-	        <input type="hidden" name="redirectUri" value="${param.afterUri}" />
+	        <input type="hidden" name="redirectUrl" value="${param.afterUrl}" />
 	        <input type="hidden" name="loginPw" />
 
 	        <div class="form-control">

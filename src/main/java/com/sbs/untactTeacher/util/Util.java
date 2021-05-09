@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -351,11 +352,23 @@ public class Util {
 	public static String msgAndPlace(HttpServletRequest req, String msg, String replaceUrl) {
 		req.setAttribute("msg", msg);
 		req.setAttribute("replaceUrl", replaceUrl);
+		
 		return "common/redirect";
 	}
-	public static String getUriEncoded(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public static String msgAndPlace(HttpSession session, HttpServletRequest req, String msg, String replaceUrl) {
+		req.setAttribute("msg", msg);
+		req.setAttribute("replaceUrl", replaceUrl);
+		
+		return "common/redirect";
+	}
+	
+	public static String getUriEncoded(String str) {
+		try {
+            return URLEncoder.encode(str, "UTF-8");
+        } catch (Exception e) {
+            return str;
+        }
 	}
 	public static String getTempPassword(int length) {
         int index = 0;

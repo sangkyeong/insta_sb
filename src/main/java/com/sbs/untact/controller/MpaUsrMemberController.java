@@ -38,7 +38,7 @@ public class MpaUsrMemberController {
     }
 
     @RequestMapping("/mpaUsr/member/doModify")
-    public String doModify(HttpServletRequest req, String loginPw, String name, String
+    public String doModify(HttpSession session,HttpServletRequest req, String loginPw, String name, String
             nickname, String cellphoneNo, String email) {
 
         if ( loginPw != null && loginPw.trim().length() == 0 ) {
@@ -51,6 +51,7 @@ public class MpaUsrMemberController {
         if (modifyRd.isFail()) {
             return Util.msgAndBack(req, modifyRd.getMsg());
         }
+        
 
         return Util.msgAndPlace(req, modifyRd.getMsg(), "/");
     }
@@ -89,9 +90,9 @@ public class MpaUsrMemberController {
     }
 
     @RequestMapping("/mpaUsr/member/doFindLoginPw")
-    public String doFindLoginPw(HttpServletRequest req, String loginId, String name, String email, String redirectUri) {
-        if (Util.isEmpty(redirectUri)) {
-            redirectUri = "/";
+    public String doFindLoginPw(HttpServletRequest req, String loginId, String name, String email, String redirectUrl) {
+        if (Util.isEmpty(redirectUrl)) {
+            redirectUrl = "/";
         }
 
         member Member = memberService.getMemberByLoginId(loginId);
@@ -110,7 +111,7 @@ public class MpaUsrMemberController {
 
         ResultData notifyTempLoginPwByEmailRs = memberService.notifyTempLoginPwByEmail(Member);
 
-        return Util.msgAndPlace(req, notifyTempLoginPwByEmailRs.getMsg(), redirectUri);
+        return Util.msgAndPlace(req, notifyTempLoginPwByEmailRs.getMsg(), redirectUrl);
     }
 	
 	@RequestMapping("/mpaUsr/member/dologout")
@@ -157,14 +158,17 @@ public class MpaUsrMemberController {
     }
 
     @RequestMapping("/mpaUsr/member/doCheckPassword")
-    public String doCheckPassword(HttpServletRequest req, String loginPw, String redirectUri) {
+    public String doCheckPassword(HttpSession session, HttpServletRequest req, String loginPw, String redirectUrl) {
         member loginedMember = ((Rq) req.getAttribute("rq")).getLoginedMember();
 
         if (loginedMember.getLoginPw().equals(loginPw) == false) {
             return Util.msgAndBack(req, "비밀번호가 일치하지 않습니다.");
         }
+        
+        session.setAttribute("checkpasswordPw", loginedMember.getLoginPw());
+        
 
-        return Util.msgAndPlace(req, "", redirectUri);
+        return Util.msgAndPlace(session, req, "", redirectUrl);
     }
 	
 	@RequestMapping("/mpaUsr/member/findLoginId")
@@ -173,9 +177,9 @@ public class MpaUsrMemberController {
     }
 
     @RequestMapping("/mpaUsr/member/doFindLoginId")
-    public String doFindLoginId(HttpServletRequest req, String name, String email, String redirectUri) {
-        if (Util.isEmpty(redirectUri)) {
-            redirectUri = "/";
+    public String doFindLoginId(HttpServletRequest req, String name, String email, String redirectUrl) {
+        if (Util.isEmpty(redirectUrl)) {
+            redirectUrl = "/";
         }
 
         member Member = memberService.getMemberByNameAndEmail(name, email);
