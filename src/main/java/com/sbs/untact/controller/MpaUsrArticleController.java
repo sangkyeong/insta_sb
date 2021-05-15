@@ -37,7 +37,11 @@ public class MpaUsrArticleController {
 		if (Util.isEmpty(body)) {
 			return Util.msgAndBack(req, "내용을 입력해주세요.");
 		}
-		int memberId = 3;
+		
+		 Rq rq = (Rq)req.getAttribute("rq");
+
+	     int memberId = rq.getLoginedMemberId();
+	        
 		ResultData writeArticleRd = ArticleService.writeArticle(boardId, memberId, title, body);
 
 
