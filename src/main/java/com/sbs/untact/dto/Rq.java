@@ -4,9 +4,12 @@ import java.util.Map;
 
 import com.sbs.untactTeacher.util.Util;
 
+import lombok.Getter;
+
 public class Rq {
 	   private member loginedMember;
 	   private String currentUrl;
+	   @Getter
 	   private Map<String, String> paramMap;
 	   private String currentUri;
 
@@ -40,7 +43,7 @@ public class Rq {
 	        return Util.getUrlEncoded(getCurrentUrl());
 	    }
 
-	    private String getCurrentUrl() {
+	    public String getCurrentUrl() {
 	        return currentUrl;
 	    }
 	    
