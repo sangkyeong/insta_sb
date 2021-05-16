@@ -71,7 +71,7 @@
 								</ul>
 							</div></li>
 							
-							<c:if test="${rq.isLogined()}">
+							<c:if test="${rq.logined}">
 						<li><a href="../member/dologout" class="h-full flex items-center px-5"> <span>
 									<i class="fas fa-sign-out-alt"></i>
 							</span> <span class="hidden md:block">&nbsp;Log OUT</span>

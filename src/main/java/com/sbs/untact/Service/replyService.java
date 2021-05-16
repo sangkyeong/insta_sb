@@ -14,6 +14,7 @@ import com.sbs.untact.dao.memberDao;
 import com.sbs.untact.dao.replyDao;
 import com.sbs.untact.dto.Article;
 import com.sbs.untact.dto.Board;
+import com.sbs.untact.dto.Reply;
 import com.sbs.untact.dto.ResultData;
 import com.sbs.untact.dto.member;
 import com.sbs.untactTeacher.util.Util;
@@ -31,5 +32,7 @@ public class replyService {
 	        return new ResultData("S-1", "댓글이 작성되었습니다.", "id", id);
 	    }
 
-	
+	    public List<Reply> getForPrintRepliesByRelTypeCodeAndRelId(String relTypeCode, int relId) {
+	        return ReplyDao.getForPrintRepliesByRelTypeCodeAndRelId(relTypeCode, relId);
+	    }
 }

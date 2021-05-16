@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.sbs.untact.dto.Article;
 import com.sbs.untact.dto.Board;
+import com.sbs.untact.dto.Reply;
 import com.sbs.untact.dto.member;
 
 @Mapper
@@ -20,4 +21,9 @@ public interface replyDao {
             @Param("body") String body);
 
  int getLastInsertId();
+ 
+ List<Reply> getForPrintRepliesByRelTypeCodeAndRelId(
+         @Param("relTypeCode") String relTypeCode,
+         @Param("relId") int relId);
+ 
 }
